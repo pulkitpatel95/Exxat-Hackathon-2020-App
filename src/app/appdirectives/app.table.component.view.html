@@ -1,0 +1,42 @@
+<h5>Hidden Columns</h5>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <td *ngFor="let hData of headerData"  (click)="onHiddenClicked(hData)">
+        {{hData}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="course">
+  <mat-table
+    [dataSource]="dataSourceMatTable"
+    class="lessons-table mat-elevation-z8 "
+    matSort
+    matSortDirection="desc"
+    matSortDisableClear
+    cdkDropListGroup>
+    <ng-container *ngFor="let h of headers; let i = index" matColumnDef="{{h}}">
+      <mat-header-cell
+        (contextmenu)="onHeaderClick(h)"
+        cdkDropList
+        cdkDropListLockAxis="x"
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="dropListDropped($event, i)"
+        cdkDrag
+        (cdkDragStarted)="dragStarted($event, i)"
+        [cdkDragData]="{name: h, columIndex: i}"
+        mat-sort-header
+        *matHeaderCellDef>
+        {{h}}</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let lesson">{{lesson[h]}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="headers" cdkDrag></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: headers;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="headersCount" [pageSize]="5" [pageSizeOptions]="[5,10,50]"></mat-paginator>
+</div>
