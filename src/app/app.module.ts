@@ -10,6 +10,7 @@ import { StudentGridComponent } from './appdirectives/app.studentgrid.component'
 import {MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule  } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SatPopoverModule } from '@ncstate/sat-popover';
+import { UtilityModule } from './utilitymodule/app.utility.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { SatPopoverModule } from '@ncstate/sat-popover';
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule,
+    AppRoutingModule, UtilityModule,
     HttpClientModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule,
     MatTableModule, BrowserAnimationsModule, DragDropModule, SatPopoverModule
   ],
