@@ -8,7 +8,7 @@ import {
   ViewChild,
   AfterViewInit
 } from "@angular/core";
-import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { MatTableDataSource, MatPaginator, MatSort, MatSpinner } from "@angular/material";
 import { tap, catchError, finalize } from "rxjs/operators";
 import { BehaviorSubject, of, merge, Observable } from "rxjs";
 import { Student } from "../models/app.student.model";
@@ -107,11 +107,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   onHeaderClick(headerName: string) {
     this.serv.postHideData(headerName).subscribe(resp => resp);
     this.getHeaderData();
+    window.location.reload();
   }
 
   getHeaderData(): void {
     this.serv.getHeaderData().subscribe(resp => {
       this.headers = [];
+      this.headerData = [];
       for (let i in resp) {
         if (resp[i] == true) {
           if (this.headers.indexOf(i) === -1) {
@@ -129,6 +131,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   onHiddenClicked(hData: string) {
     this.serv.postShowData(hData).subscribe(resp => resp);
     this.getHeaderData();
+    window.location.reload();
   }
 
   dragStarted(event: CdkDragStart, index: number) {

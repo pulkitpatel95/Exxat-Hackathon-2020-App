@@ -10,13 +10,16 @@ export class StudentGridComponent implements OnInit {
   student: Student;
   students: Array<Student>;
   data: string;
+  IsWait: boolean;
   constructor(private service: HttpService) {
     this.students = new Array<Student>();
     this.student = new Student(0, "", "", "", "", 0, "", "", "", "", "");
   }
 
   ngOnInit(): void {
+    this.IsWait = true;
     this.service.getData().subscribe(resp => {
+      this.IsWait = false;
       this.students = resp;
     });
   }
