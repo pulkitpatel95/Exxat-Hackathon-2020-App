@@ -1,0 +1,14 @@
+<style>
+    .contextmenu {
+        position: absolute;
+        box-shadow: 0 2px 4px 0 plum;
+        z-index: 10;
+        background-color: linen;
+    }
+</style>
+
+<div class="contextmenu" [ngStyle]="{'left.px': x, 'top.px': y}">
+    <ul>
+        <li (click)="onHideClickNotify('hide')">Hide Column</li>
+    </ul>
+</div>

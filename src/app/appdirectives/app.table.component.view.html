@@ -1,15 +1,17 @@
-<h5>Hidden Columns</h5>
-<table class="table table-bordered table-striped">
-  <tbody>
-    <tr>
-      <td *ngFor="let hData of headerData"  (click)="onHiddenClicked(hData)">
-        {{hData}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+<mat-form-field>
+  <mat-label>Hidden Columns</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let hData of headerData" (click)="onHiddenClicked(hData)">
+      {{hData}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
-<div class="course">
+<div *ngIf="contextmenu">
+  <app-contextmenu-component [x]="contextmenuX" [y]="contextmenuY" (notifyContext)="subscribeToContextData($event)"></app-contextmenu-component>
+</div>
+
+<div class="course" (click)="contextMenuHide()">
   <mat-table
     [dataSource]="dataSourceMatTable"
     class="lessons-table mat-elevation-z8 "
@@ -19,7 +21,7 @@
     cdkDropListGroup>
     <ng-container *ngFor="let h of headers; let i = index" matColumnDef="{{h}}">
       <mat-header-cell
-        (contextmenu)="onHeaderClick(h)"
+        (contextmenu)="onContextMenuClicked(h, $event)"
         cdkDropList
         cdkDropListLockAxis="x"
         cdkDropListOrientation="horizontal"

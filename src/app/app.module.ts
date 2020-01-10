@@ -7,20 +7,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableComponent } from './appdirectives/app.table.component';
 import { StudentGridComponent } from './appdirectives/app.studentgrid.component';
-import {MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule  } from '@angular/material';
+import {MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatSelectModule, MatOptionModule  } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SatPopoverModule } from '@ncstate/sat-popover';
 import { UtilityModule } from './utilitymodule/app.utility.module';
+import { ContextMenu } from './contextmenu/app.contextmenu.component';
 
 @NgModule({
   declarations: [
-    AppComponent, TableComponent,StudentGridComponent
+    AppComponent, TableComponent,StudentGridComponent, ContextMenu
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     AppRoutingModule, UtilityModule,
     HttpClientModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule,
-    MatTableModule, BrowserAnimationsModule, DragDropModule, SatPopoverModule
+    MatTableModule, BrowserAnimationsModule, DragDropModule, SatPopoverModule, MatOptionModule, MatSelectModule
   ],
   providers: [],
   bootstrap: [StudentGridComponent]

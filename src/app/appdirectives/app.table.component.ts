@@ -8,7 +8,7 @@ import {
   ViewChild,
   AfterViewInit
 } from "@angular/core";
-import { MatTableDataSource, MatPaginator, MatSort, MatSpinner } from "@angular/material";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { tap, catchError, finalize } from "rxjs/operators";
 import { BehaviorSubject, of, merge, Observable } from "rxjs";
 import { Student } from "../models/app.student.model";
@@ -32,7 +32,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   headers: Array<string>;
   headersCount: number;
   headerData: Array<string>;
+  headerClicked: string;
   previousIndex: number;
+  contextmenu = false;
+  contextmenuX = 0;
+  contextmenuY = 0;
+  
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -105,9 +110,10 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   onHeaderClick(headerName: string) {
-    this.serv.postHideData(headerName).subscribe(resp => resp);
-    this.getHeaderData();
-    window.location.reload();
+    this.serv.postHideData(headerName).subscribe(resp => {
+      this.getHeaderData();  
+    });
+    //window.location.reload();
   }
 
   getHeaderData(): void {
@@ -129,9 +135,10 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   onHiddenClicked(hData: string) {
-    this.serv.postShowData(hData).subscribe(resp => resp);
-    this.getHeaderData();
-    window.location.reload();
+    this.serv.postShowData(hData).subscribe(resp => {
+      this.getHeaderData();  
+    });
+    //window.location.reload();
   }
 
   dragStarted(event: CdkDragStart, index: number) {
@@ -151,5 +158,24 @@ export class TableComponent implements OnInit, AfterViewInit {
     const copy = this.dataSourceMatTable.data().slice();
     el.LastName = lName;
     this.dataSourceMatTable.update(copy);
+  }
+
+  onContextMenuClicked(header:string, event){
+    this.contextmenu = true;
+    this.contextmenuX = event.clientX;
+    this.contextmenuY = event.clinetY;
+    this.headerClicked = header;
+    event.preventDefault();
+  }
+
+  contextMenuHide(){
+    this.contextmenu = false;
+  }
+
+  subscribeToContextData(event: any): void{
+    this.contextmenu = false;
+    if(event == 'hide'){
+      this.onHeaderClick(this.headerClicked);
+    }
   }
 }
