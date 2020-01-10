@@ -104,10 +104,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onHeaderClick(headerName: string) {
+  onHeaderClick(headerName: string, event: Event) {
     this.serv.postHideData(headerName).subscribe(resp => resp);
     this.getHeaderData();
-    window.location.reload();
+    event.preventDefault();
   }
 
   getHeaderData(): void {
@@ -131,7 +131,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   onHiddenClicked(hData: string) {
     this.serv.postShowData(hData).subscribe(resp => resp);
     this.getHeaderData();
-    window.location.reload();
   }
 
   dragStarted(event: CdkDragStart, index: number) {

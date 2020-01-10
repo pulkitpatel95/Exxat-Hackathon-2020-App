@@ -19,7 +19,7 @@
     cdkDropListGroup>
     <ng-container *ngFor="let h of headers; let i = index" matColumnDef="{{h}}">
       <mat-header-cell
-        (contextmenu)="onHeaderClick(h)"
+        (contextmenu)="onHeaderClick(h,$event)"
         cdkDropList
         cdkDropListLockAxis="x"
         cdkDropListOrientation="horizontal"
