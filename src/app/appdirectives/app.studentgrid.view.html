@@ -1,9 +1,28 @@
 <div class="container">
     <h2>The Custom Data Grid</h2>
-    <div class="overlay">
-        <div class="mat-app-background center">
-            <mat-spinner *ngIf="IsWait"></mat-spinner>
-          </div>
-          <app-table-component [DataSource]="students" (notify)="subscribeToData($event)"></app-table-component>
-    </div>
+        <div class="mat-app-background overlay" *ngIf="IsWait">
+            <mat-spinner class="center"></mat-spinner>
+        </div>
+    <app-table-component [DataSource]="students" (notify)="subscribeToData($event)"></app-table-component>
 </div>
+
+<style>
+      .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);    
+    }
+
+    .overlay{
+  height:100%;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.286);
+  z-index:    10;
+  top:        0; 
+  left:       0; 
+  position:   fixed;
+}
+</style>
